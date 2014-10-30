@@ -25,5 +25,22 @@ namespace Perceptron
             get { return Values[index]; }
             set { Values[index] = value;  }
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("(");
+            for (int i = 0; i < Values.Length; i++)
+            {
+                if (i != (Values.Length - 1))
+                {
+                    sb.Append(Values[i]).Append(",");
+                }
+            }
+
+            sb.Append(")");
+            return sb.ToString();
+        }
     }
 }
