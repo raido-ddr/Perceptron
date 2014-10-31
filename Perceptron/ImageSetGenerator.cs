@@ -61,7 +61,7 @@ namespace Perceptron
 
             for (int i = 0; i < featureCount; i++)
             {
-                image[i] = random.Next(-10, 11);
+                image[i] = random.Next(-20, 21);
             }
 
             image[featureCount] = 1;

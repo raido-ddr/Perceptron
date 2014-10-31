@@ -25,24 +25,32 @@ namespace Perceptron
             int featureCount = Convert.ToInt32(FeatureCountTxt.Text.Trim());
             
             ImageSetGenerator generator = ImageSetGenerator.Instance;
-
-            ImageSet trainingSet = generator.GenerateRandomSet(clusterCount, 
-                imagesPerCluster, featureCount);
-
             Perceptron = Perceptron.Instance;
-            Perceptron.LoadTrainingSet(trainingSet);
+
+            ImageSet trainingSet;
+            do
+            {
+                trainingSet = generator.GenerateRandomSet(clusterCount, 
+                    imagesPerCluster, featureCount);
+                Perceptron.LoadTrainingSet(trainingSet);
+
+
+            } while (!Perceptron.Train(trainingSet, 1000));
+
+            
 
             TrainingSetTxt.Text = Perceptron.ClustersToString();
 
-            if (Perceptron.Train(trainingSet, 100) == true)
-            {
-                PredictorFunctionsTxt.Text = Perceptron.PredictorFunctionsToString();
-            }
-            else
-            {
-                PredictorFunctionsTxt.Text = "Trainig failed.";
-            }
-            
+            //if (Perceptron.Train(trainingSet, 5000) == true)
+            //{
+            //    PredictorFunctionsTxt.Text = Perceptron.PredictorFunctionsToString();
+            //}
+            //else
+            //{
+            //    PredictorFunctionsTxt.Text = "Training failed.";
+            //}
+
+            PredictorFunctionsTxt.Text = Perceptron.PredictorFunctionsToString();
 
         }
 
