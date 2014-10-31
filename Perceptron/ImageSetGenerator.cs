@@ -9,31 +9,62 @@ namespace Perceptron
 {
     class ImageSetGenerator
     {
-        public ImageSet GenerateRandomSet(int clusterCount, int imagesPerCluster,
-            int vectorDimension)
+        public static ImageSetGenerator Instance
         {
-            int imageCount = clusterCount * imagesPerCluster;
-
-            ImageSet imageSet = new ImageSet(imageCount);
-
-            for (int i = 0; i < clusterCount * imagesPerCluster; i++)
+            get
             {
-                imageSet[i] = GenerateRandomVector(clusterCount, vectorDimension);
+                if (instance == null)
+                {
+                    instance = new ImageSetGenerator();
+                }
+                return instance;
+            }
+        }
+
+        private static ImageSetGenerator instance;
+
+        private static Random random = new Random();
+
+        private ImageSetGenerator()
+        {}
+
+        public ImageSet GenerateRandomSet(int clusterCount, int imagesPerCluster,
+            int featureCount)
+        {
+            ImageSet imageSet = new ImageSet(clusterCount);
+
+            for (int i = 0; i < clusterCount; i++)
+            {
+                imageSet[i] = GenerateRandomCluster(i,
+                    imagesPerCluster, featureCount);
             }
 
             return imageSet;
         }
 
-        private ImageVector GenerateRandomVector(int clusterCount, int vectorDimension)
+        private Cluster GenerateRandomCluster(int code, int vectorCount, int featureCount)
         {
-            ImageVector image = new ImageVector(vectorDimension);
-            Random rnd = new Random();
+            Cluster cluster =  new Cluster(code, featureCount + 1);
 
-            for (int i = 0; i < vectorDimension; i++)
+            for (int i = 0; i < vectorCount; i++)
             {
-                image[i] = rnd.Next(-10, 11);
-                image.ClusterCode = rnd.Next(clusterCount) + 1;
+                ImageVector image = GenerateRandomVector(featureCount);
+                cluster.AddImageVector(image);
             }
+
+            return cluster;
+        }
+
+        private ImageVector GenerateRandomVector(int featureCount)
+        {
+            ImageVector image = new ImageVector(featureCount + 1);
+
+            for (int i = 0; i < featureCount; i++)
+            {
+                image[i] = random.Next(-10, 11);
+            }
+
+            image[featureCount] = 1;
 
             return image;
         }

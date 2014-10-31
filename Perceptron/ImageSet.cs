@@ -9,22 +9,22 @@ namespace Perceptron
 {
     class ImageSet
     {
-        public ImageVector[] vectors { get; set; }
+        public Cluster[] Clusters { get; set; }
 
         public int Size 
         {
-            get { return vectors.Length; }
+            get { return Clusters.Length; }
         }
 
         public ImageSet(int vectorCount)
         {
-            vectors = new ImageVector[vectorCount];
+            Clusters = new Cluster[vectorCount];
         }
 
-        public ImageVector this[int index]
+        public Cluster this[int index]
         {
-            get { return vectors[index]; }
-            set { vectors[index] = value; }
+            get { return Clusters[index]; }
+            set { Clusters[index] = value; }
         }
 
     }

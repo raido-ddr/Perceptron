@@ -10,6 +10,17 @@ namespace Perceptron
     {
         public int Code { get; set; }
 
+        public int ImageVectorCount
+        {
+            get { return ImageVectors.Count;  }
+        }
+
+        public ImageVector this[int index]
+        {
+            get { return ImageVectors[index];  }
+            set { ImageVectors[index] = value;  }
+        }
+
         public List<ImageVector> ImageVectors { get; set; }
 
         private Vector Weight { get; set; }
@@ -63,15 +74,17 @@ namespace Perceptron
             StringBuilder sb = new StringBuilder();
             int dimension = Weight.Dimension;
 
+            sb.Append("D");
+            sb.Append(Code);
+            sb.Append("(x) = ");
+
             for (int i = 0; i < dimension; i++)
             {
-                sb.Append(Weight[i])
-                    .Append("x")
-                    .Append(i);
+                sb.Append(Weight[i].ToString("+#;-#;+0"));
 
                 if (i < (dimension - 1))
                 {
-                    sb.Append(" + ");
+                    sb.Append(" x").Append(i).Append(" ");
                 }
             }
 
@@ -82,11 +95,19 @@ namespace Perceptron
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("Class #").Append(Code).Append("line");
+            sb.Append("Class #").Append(Code).Append(Environment.NewLine);
 
-            foreach (ImageVector iv in ImageVectors)
+            for (int i = 0; i < ImageVectorCount; i++)
             {
-                sb.Append(iv.ToString());
+                sb.Append(ImageVectors[i].ToString());
+                if (i < (ImageVectorCount - 1))
+                {
+                    sb.Append(", ");
+                }
+                else
+                {
+                    sb.Append(Environment.NewLine);
+                }
             }
 
             return sb.ToString();

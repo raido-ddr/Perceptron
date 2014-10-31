@@ -8,31 +8,58 @@ namespace Perceptron
 {
     class Perceptron
     {
-        public int ClusterCount { get; set; }
+        public int ClusterCount
+        {
+            get { return Clusters.Length; }
+        }
 
         public int FeatureCount { get; set; }
 
+        public static Perceptron Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Perceptron();
+                }
+                return instance;
+            }
+        }
+
         private Cluster[] Clusters { get; set; }
 
-        public Perceptron(int clusterCount, int featureCount)
+        private static Perceptron instance;
+        
+        private Perceptron()
+        {}
+
+        public void LoadTrainingSet(ImageSet trainingSet)
         {
-            ClusterCount = clusterCount;
-            FeatureCount = featureCount;
-            InitializeClusters();
+            Clusters = trainingSet.Clusters;
         }
+
+        public void Reset()
+        {
+            ClearClusters();
+        }
+
 
         public bool Train(ImageSet trainingSet, int iterationLimit)
         {
             bool punishmentNeeded = false;
+            int iterationCount = 0;
 
-            for (int i = 0; i < iterationLimit; i++)
+            for (iterationCount = 0; iterationCount < iterationLimit; iterationCount++)
             {
-                punishmentNeeded = TrainingIteration(trainingSet);
+                punishmentNeeded = TrainingIteration();
                 if (! punishmentNeeded)
                 {
                     break;
                 }
             }
+
+            Console.WriteLine(iterationCount);
 
             bool trainingSucceeded = punishmentNeeded
                 ? false
@@ -41,49 +68,14 @@ namespace Perceptron
             return trainingSucceeded;
         }
 
-        private bool TrainingIteration(ImageSet trainingSet)
-        {
-            bool needsPunishment = false;
-            ClearClusters();
-
-            for (int i = 0; i < trainingSet.Size; i++)
-            {
-                ImageVector currentVector = trainingSet[i];
-                int predictedClusterCode = Classify(currentVector);
-                AssignCluster(currentVector, predictedClusterCode);
-
-                if (currentVector.ClusterCode != predictedClusterCode)
-                {
-                    ApplyPunishment(currentVector);
-                    needsPunishment = true;
-                }
-
-            }
-
-            return needsPunishment;
-        }
-
-        private void ClearClusters()
-        {
-            foreach (var cluster in Clusters)
-            {
-                cluster.ClearImageVectors();
-            }
-        }
-
-        private void AssignCluster(ImageVector vector, int clusterCode)
-        {
-            Clusters[clusterCode].AddImageVector(vector);
-        }
-
-        private int Classify(ImageVector currentVector)
+        public int Classify(ImageVector image)
         {
             int maxPredictionValue = int.MinValue;
             int predictedClusterCode = 0;
 
-            for(int i = 0; i < ClusterCount; i++)
+            for (int i = 0; i < ClusterCount; i++)
             {
-                int prediction = Clusters[i].PredictorFunction(currentVector);
+                int prediction = Clusters[i].PredictorFunction(image);
 
                 if (prediction > maxPredictionValue)
                 {
@@ -95,20 +87,74 @@ namespace Perceptron
             return predictedClusterCode;
         }
 
-        private void ApplyPunishment(ImageVector currentVector)
+        private bool TrainingIteration()
         {
+            bool punishmentApplied = false;
+
             for (int i = 0; i < ClusterCount; i++)
             {
-                if (i == currentVector.ClusterCode)
+                bool clusterPunishmentApplied = TrainOnCluster(Clusters[i]);
+                if (clusterPunishmentApplied)
                 {
-                    Clusters[i].IncreaseWeight(currentVector);
+                    punishmentApplied = true;
+                }
+            }
+
+            return punishmentApplied;
+        }
+
+        private bool TrainOnCluster(Cluster cluster)
+        {
+            bool punishmentApplied = false;
+
+            for (int j = 0; j < cluster.ImageVectorCount; j++)
+            {
+                ImageVector currentImage = cluster[j];
+                int trainingPrediction = cluster.PredictorFunction(currentImage);
+
+                foreach (var otherCluster in Clusters)
+                {
+                    int otherPrediction = otherCluster.PredictorFunction(currentImage);
+                    if ((otherPrediction >= trainingPrediction) 
+                        && (otherCluster != cluster))
+                    {
+                        ApplyPunishment(cluster, currentImage);
+                        punishmentApplied = true;
+                        break;
+                    }
+                }
+               
+            }
+
+            return punishmentApplied;
+        }
+       
+       
+        
+
+        private void ApplyPunishment(Cluster clusterToIncrease, ImageVector currentVector)
+        {
+            foreach (Cluster cluster in Clusters)
+            {
+                if (cluster == clusterToIncrease)
+                {
+                    cluster.IncreaseWeight(currentVector);
                 }
                 else
                 {
-                    Clusters[i].DecreaseWeight(currentVector);
+                    cluster.DecreaseWeight(currentVector);
                 }
             }
         }
+
+        private void ClearClusters()
+        {
+            foreach (var cluster in Clusters)
+            {
+                cluster.ClearImageVectors();
+            }
+        }
+
 
         private void InitializeClusters()
         {
@@ -117,6 +163,34 @@ namespace Perceptron
                 Clusters[i] = new Cluster(i, FeatureCount);
             }
         }
+
+        public  string ClustersToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Cluster cluster in Clusters)
+            {
+                sb.Append(cluster.ToString());
+                sb.Append(Environment.NewLine);
+            }
+
+            return sb.ToString();
+        }
+
+        public string PredictorFunctionsToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Cluster cluster in Clusters)
+            {
+                sb.Append(cluster.PredictorFunctionString());
+                sb.Append(Environment.NewLine);
+            }
+
+            return sb.ToString();
+
+        }
+
 
     }
 }

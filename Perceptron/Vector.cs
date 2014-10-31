@@ -8,6 +8,7 @@ namespace Perceptron
 {
     class Vector
     {
+
         public Vector(int dimension)
         {
             Values = new int[dimension];
@@ -31,11 +32,13 @@ namespace Perceptron
             StringBuilder sb = new StringBuilder();
 
             sb.Append("(");
-            for (int i = 0; i < Values.Length; i++)
+            for (int i = 0; i < Values.Length - 1; i++)
             {
-                if (i != (Values.Length - 1))
+                sb.Append(Values[i]);
+
+                if (i < (Values.Length - 2))
                 {
-                    sb.Append(Values[i]).Append(",");
+                    sb.Append(", ");
                 }
             }
 

@@ -9,11 +9,18 @@ namespace Perceptron
     class ImageVector : Vector
     {
 
-        public int ClusterCode { get; set; }
-
         public ImageVector(int dimension)
             : base(dimension)
         {}
+
+        public ImageVector(string[] features)
+            : base(features.Length)
+        {
+            for (int i = 0; i < features.Length; i++)
+            {
+                Values[i] = Convert.ToInt32(features[i]);
+            }
+        }
         
     }
 }
