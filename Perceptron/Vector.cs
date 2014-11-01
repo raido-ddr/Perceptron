@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,19 @@ namespace Perceptron
 
             sb.Append(")");
             return sb.ToString();
+        }
+
+        public void Supplement(int extraFeature)
+        {
+            int [] supplementedValues = new int[Values.Length + 1];
+
+            for (int i = 0; i < Values.Length; i++)
+            {
+                supplementedValues[i] = Values[i];
+            }
+
+            supplementedValues[Values.Length] = extraFeature;
+            Values = supplementedValues;
         }
     }
 }

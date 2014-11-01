@@ -44,7 +44,6 @@ namespace Perceptron
             ClearClusters();
         }
 
-
         public bool Train(ImageSet trainingSet, int iterationLimit)
         {
             bool punishmentNeeded = false;
@@ -70,6 +69,8 @@ namespace Perceptron
 
         public int Classify(ImageVector image)
         {
+            image.Supplement(1);
+
             int maxPredictionValue = int.MinValue;
             int predictedClusterCode = 0;
 
@@ -188,7 +189,6 @@ namespace Perceptron
             }
 
             return sb.ToString();
-
         }
 
 

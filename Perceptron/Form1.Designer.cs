@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.IterationsLimitTxt = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.ImagePerClusterTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.FeatureCountTxt = new System.Windows.Forms.TextBox();
@@ -37,16 +39,15 @@
             this.ClusterCountTxt = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TrainingSetTxt = new System.Windows.Forms.TextBox();
-            this.GenerateTrainingBtn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.PredictorFunctionsTxt = new System.Windows.Forms.TextBox();
             this.TrainBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.TestVectorTxt = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.ClassTxt = new System.Windows.Forms.TextBox();
             this.ClassifyBtn = new System.Windows.Forms.Button();
+            this.ClassTxt = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TestVectorTxt = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,6 +65,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.IterationsLimitTxt);
+            this.groupBox1.Controls.Add(this.TrainBtn);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.ImagePerClusterTxt);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.FeatureCountTxt);
@@ -72,10 +76,27 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 326);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(215, 123);
+            this.groupBox1.Size = new System.Drawing.Size(486, 181);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input data";
+            // 
+            // IterationsLimitTxt
+            // 
+            this.IterationsLimitTxt.Location = new System.Drawing.Point(387, 28);
+            this.IterationsLimitTxt.Name = "IterationsLimitTxt";
+            this.IterationsLimitTxt.Size = new System.Drawing.Size(54, 20);
+            this.IterationsLimitTxt.TabIndex = 9;
+            this.IterationsLimitTxt.Text = "200";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(237, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(113, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Training iterations limit:";
             // 
             // ImagePerClusterTxt
             // 
@@ -139,16 +160,6 @@
             this.TrainingSetTxt.Size = new System.Drawing.Size(454, 238);
             this.TrainingSetTxt.TabIndex = 0;
             // 
-            // GenerateTrainingBtn
-            // 
-            this.GenerateTrainingBtn.Location = new System.Drawing.Point(12, 471);
-            this.GenerateTrainingBtn.Name = "GenerateTrainingBtn";
-            this.GenerateTrainingBtn.Size = new System.Drawing.Size(75, 23);
-            this.GenerateTrainingBtn.TabIndex = 3;
-            this.GenerateTrainingBtn.Text = "Generate";
-            this.GenerateTrainingBtn.UseVisualStyleBackColor = true;
-            this.GenerateTrainingBtn.Click += new System.EventHandler(this.GenerateTrainingBtn_Click);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.PredictorFunctionsTxt);
@@ -171,7 +182,7 @@
             // 
             // TrainBtn
             // 
-            this.TrainBtn.Location = new System.Drawing.Point(109, 471);
+            this.TrainBtn.Location = new System.Drawing.Point(15, 145);
             this.TrainBtn.Name = "TrainBtn";
             this.TrainBtn.Size = new System.Drawing.Size(75, 23);
             this.TrainBtn.TabIndex = 2;
@@ -186,44 +197,12 @@
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.TestVectorTxt);
-            this.groupBox4.Location = new System.Drawing.Point(510, 331);
+            this.groupBox4.Location = new System.Drawing.Point(510, 326);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(365, 176);
+            this.groupBox4.Size = new System.Drawing.Size(365, 181);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Classification";
-            // 
-            // TestVectorTxt
-            // 
-            this.TestVectorTxt.Location = new System.Drawing.Point(18, 47);
-            this.TestVectorTxt.Name = "TestVectorTxt";
-            this.TestVectorTxt.Size = new System.Drawing.Size(323, 20);
-            this.TestVectorTxt.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Test vector features:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 85);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Class:";
-            // 
-            // ClassTxt
-            // 
-            this.ClassTxt.Location = new System.Drawing.Point(18, 104);
-            this.ClassTxt.Name = "ClassTxt";
-            this.ClassTxt.Size = new System.Drawing.Size(74, 20);
-            this.ClassTxt.TabIndex = 3;
             // 
             // ClassifyBtn
             // 
@@ -235,15 +214,45 @@
             this.ClassifyBtn.UseVisualStyleBackColor = true;
             this.ClassifyBtn.Click += new System.EventHandler(this.ClassifyBtn_Click);
             // 
+            // ClassTxt
+            // 
+            this.ClassTxt.Location = new System.Drawing.Point(18, 104);
+            this.ClassTxt.Name = "ClassTxt";
+            this.ClassTxt.Size = new System.Drawing.Size(74, 20);
+            this.ClassTxt.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Class:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(105, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Test vector features:";
+            // 
+            // TestVectorTxt
+            // 
+            this.TestVectorTxt.Location = new System.Drawing.Point(18, 47);
+            this.TestVectorTxt.Name = "TestVectorTxt";
+            this.TestVectorTxt.Size = new System.Drawing.Size(323, 20);
+            this.TestVectorTxt.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 523);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.TrainBtn);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.GenerateTrainingBtn);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -271,7 +280,6 @@
         private System.Windows.Forms.TextBox ClusterCountTxt;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox TrainingSetTxt;
-        private System.Windows.Forms.Button GenerateTrainingBtn;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button TrainBtn;
         private System.Windows.Forms.TextBox PredictorFunctionsTxt;
@@ -281,6 +289,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TestVectorTxt;
+        private System.Windows.Forms.TextBox IterationsLimitTxt;
+        private System.Windows.Forms.Label label6;
     }
 }
 
