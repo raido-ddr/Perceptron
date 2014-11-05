@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.IterationsLimitTxt = new System.Windows.Forms.TextBox();
+            this.TrainBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.ImagePerClusterTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,7 +42,6 @@
             this.TrainingSetTxt = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.PredictorFunctionsTxt = new System.Windows.Forms.TextBox();
-            this.TrainBtn = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.ClassifyBtn = new System.Windows.Forms.Button();
             this.ClassTxt = new System.Windows.Forms.TextBox();
@@ -88,6 +88,16 @@
             this.IterationsLimitTxt.Size = new System.Drawing.Size(54, 20);
             this.IterationsLimitTxt.TabIndex = 9;
             this.IterationsLimitTxt.Text = "200";
+            // 
+            // TrainBtn
+            // 
+            this.TrainBtn.Location = new System.Drawing.Point(15, 145);
+            this.TrainBtn.Name = "TrainBtn";
+            this.TrainBtn.Size = new System.Drawing.Size(75, 23);
+            this.TrainBtn.TabIndex = 2;
+            this.TrainBtn.Text = "Train";
+            this.TrainBtn.UseVisualStyleBackColor = true;
+            this.TrainBtn.Click += new System.EventHandler(this.TrainBtn_Click);
             // 
             // label6
             // 
@@ -180,16 +190,6 @@
             this.PredictorFunctionsTxt.Size = new System.Drawing.Size(407, 238);
             this.PredictorFunctionsTxt.TabIndex = 1;
             // 
-            // TrainBtn
-            // 
-            this.TrainBtn.Location = new System.Drawing.Point(15, 145);
-            this.TrainBtn.Name = "TrainBtn";
-            this.TrainBtn.Size = new System.Drawing.Size(75, 23);
-            this.TrainBtn.TabIndex = 2;
-            this.TrainBtn.Text = "Train";
-            this.TrainBtn.UseVisualStyleBackColor = true;
-            this.TrainBtn.Click += new System.EventHandler(this.TrainBtn_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.ClassifyBtn);
@@ -199,7 +199,7 @@
             this.groupBox4.Controls.Add(this.TestVectorTxt);
             this.groupBox4.Location = new System.Drawing.Point(510, 326);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(365, 181);
+            this.groupBox4.Size = new System.Drawing.Size(442, 181);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Classification";
@@ -256,6 +256,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Perceptron";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -21,6 +21,8 @@ namespace Perceptron
 
         private void TrainBtn_Click(object sender, EventArgs e)
         {
+            ClearResults();
+
             int clusterCount = Convert.ToInt32(ClusterCountTxt.Text.Trim());
             int imagesPerCluster = Convert.ToInt32(ImagePerClusterTxt.Text.Trim());
             int featureCount = Convert.ToInt32(FeatureCountTxt.Text.Trim());
@@ -77,6 +79,12 @@ namespace Perceptron
         private void ClearTrainingSetOutput()
         {
             TrainingSetTxt.Clear();
+        }
+
+        private void ClearResults()
+        {
+            ClassTxt.Clear();
+            TestVectorTxt.Clear();
         }
     }
 }
